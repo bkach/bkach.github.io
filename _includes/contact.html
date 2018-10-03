@@ -7,9 +7,15 @@
     </li>
     {% endif %}
 
+    {% if sidebar.sampleProject %}
+    <li class="website"><i class="fab fa-android"></i>
+      <a href="{{ sidebar.sampleProject }}" target="_blank">Code Sample</a>
+    </li>
+    {% endif %}
+
     {% if sidebar.portfolio %}
     <li class="website"><i class="fas fa-globe-americas"></i>
-      <a href="{{ sidebar.portfolio}}" target="_blank">portfolio</a>
+      <a href="{{ sidebar.portfolio}}" target="_blank">Portfolio</a>
     </li>
     {% endif %}
 
