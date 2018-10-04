@@ -101,10 +101,10 @@ publications:
 portfolio:
     title: Portfolio
     summary: |
-        <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vS8mVMoaZQMTebCBcUHFdwCF-8kEGwtf9VRRN2C2eH3xUQLYU_BAiM9JdZEhpVuFvcmHgv8jiiqGiU3/embed?start=false&loop=false&delayms=3000" frameborder="0" width="480" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+        <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vS8mVMoaZQMTebCBcUHFdwCF-8kEGwtf9VRRN2C2eH3xUQLYU_BAiM9JdZEhpVuFvcmHgv8jiiqGiU3/embed?start=false&loop=false&delayms=3000" frameborder="0" width="100%" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 sample:
     title: Code Sample
     summary: |
-        <div class="github-card" data-github="bkach/userdashboard" data-width="400" data-height="" data-theme="default"></div>
+        <div class="github-card" data-github="bkach/userdashboard" data-width="100%" data-height="" data-theme="default"></div>
         <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
