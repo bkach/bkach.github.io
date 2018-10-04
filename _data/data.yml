@@ -103,9 +103,6 @@ portfolio:
     summary: |
         <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vS8mVMoaZQMTebCBcUHFdwCF-8kEGwtf9VRRN2C2eH3xUQLYU_BAiM9JdZEhpVuFvcmHgv8jiiqGiU3/embed?start=false&loop=false&delayms=3000" frameborder="0" width="100%" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
-site:
-    analytics: UA-65072840-1
-
 sample:
     title: Code Sample
     summary: |
