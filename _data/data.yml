@@ -106,5 +106,5 @@ portfolio:
 sample:
     title: Code Sample
     summary: |
-        <div class="github-card" data-github="bkach/userdashboard" data-width="100%" data-height="" data-theme="default"></div>
+        <div class="github-card" data-github="bkach/PostDashboard" data-width="100%" data-height="" data-theme="default"></div>
         <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
