@@ -64,6 +64,12 @@ education:
 
 experiences:
     - role: Android Developer
+      time: 2019 - Present
+      company: Monzo Bank | London, UK
+      details: |
+        I'm currently working as an Android Developer at Monzo Bank, building the future of banking!
+
+    - role: Android Developer
       time: 2015 - 2018
       company: Ustwo | Malmö, New York City, London
       details: |
