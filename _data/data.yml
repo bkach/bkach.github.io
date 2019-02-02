@@ -32,8 +32,7 @@ sidebar:
 career-profile:
     title: Intro
     summary: |
-      Experienced Android Developer with a passion for beautiful and well structured code. I love leveraging
-      the power of tests in order to make solid, expressive, and clean architecture.
+      Android Developer
 
 education:
     - degree: MSc in Computer Science
@@ -72,28 +71,28 @@ experiences:
     - role: Android Developer
       time: 2015 - 2018
       company: Ustwo | Malmö, New York City, London
-      details: |
-        I worked as an Android developer with interdisciplinary teams on a variety of client projects
-        involving anything from games to smart cars. This has taken me all around the world, working
-        for a time in the New York, London and Malmö studios. Some examples of the projects i’ve worked
-        on are Android Wear watch faces for Google, the Google Fit Watch Face, GoPark Smart Parking for
-        Ford, and AlphaGuide for BMW. I’ve worked as a native developer, but have also been in a leading role as a product owner on a few in-house projects.
+      #details: |
+        #I worked as an Android developer with interdisciplinary teams on a variety of client projects
+        #involving anything from games to smart cars. This has taken me all around the world, working
+        #for a time in the New York, London and Malmö studios. Some examples of the projects i’ve worked
+        #on are Android Wear watch faces for Google, the Google Fit Watch Face, GoPark Smart Parking for
+        #Ford, and AlphaGuide for BMW. I’ve worked as a native developer, but have also been in a leading role as a product owner on a few in-house projects.
 
     - role: Android Developer Intern
       time: 2015
       company: ustwo, Malmö
-      details: |
-        I worked as an Android Developer with a small interdisciplinary team of design, UX, and dev interns to create
-        app prototypes for various applications from scratch. I also shadowed the Android development and Unity teams
-        to get hands on experience on current projects.
+      #details: |
+        #I worked as an Android Developer with a small interdisciplinary team of design, UX, and dev interns to create
+        #app prototypes for various applications from scratch. I also shadowed the Android development and Unity teams
+        #to get hands on experience on current projects.
 
     - role: Student Researcher
       time: 2015
       company: Goo Technologies, Stockholm
-      details: |
-        I worked with Goo Technologies on building an intuitive interface for working with procedural noise.
-        The result was then implemented within Goo Technology’s WebGL graphics engine. I worked together
-        with the team to plan, design, and build the interface, ultimately by combining WebGL and D3.js.
+      #details: |
+        #I worked with Goo Technologies on building an intuitive interface for working with procedural noise.
+        #The result was then implemented within Goo Technology’s WebGL graphics engine. I worked together
+        #with the team to plan, design, and build the interface, ultimately by combining WebGL and D3.js.
 
 publications:
     title: Masters Thesis
