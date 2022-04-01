@@ -43,9 +43,19 @@
   </header>
 
   <div class="post-content">
-    <p>Some notes on how I should install stuff.</p>
+    <p><img style="width:25%" src="../pics/ohms-law.png" /></p>
 
-<h1 id="mptt-solar-charge-controller">MPTT Solar charge controller</h1>
+<ul>
+  <li><a href="#MPPT">MPTT Solar charge controller</a></li>
+  <li><a href="#Smartshunt">Smartshunt Battery Monitor</a></li>
+  <li><a href="#battery-protect">Battery Protect</a></li>
+  <li><a href="#wire-gauge-info">Wire Gauge Info</a></li>
+  <li><a href="#why-not-ground">Why not ground</a></li>
+  <li><a href="#dangers">Dangers of electricity</a></li>
+  <li><a href="#sources">Sources</a></li>
+</ul>
+
+<h1 id="mppt-solar-charge-controller-">MPPT Solar charge controller <a name="MPPT"></a></h1>
 
 <p>Make all electrical connections in the following order:</p>
 
@@ -62,7 +72,7 @@ First: Secure all electrical cables as indicated in the WireBox installation ins
 Then: Place the WireBox plastic cover over the solar charger connection area and secure it.</li>
 </ul>
 
-<h1 id="smartshunt-battery-monitor">Smartshunt Battery Monitor</h1>
+<h1 id="smartshunt-battery-monitor-">Smartshunt Battery Monitor <a name="Smartshunt"></a></h1>
 
 <ul>
   <li>Connect the negative battery terminal to the M10 bolt on the BATTERY MINUS side of the shunt.
@@ -79,24 +89,196 @@ Note that up until 2020, the SYSTEM MINUS connection was labelled LOAD MINUS.</l
 
 <p>The battery monitor needs to be configured to be fully operational,</p>
 
-<h1 id="battery-protect">Battery Protect</h1>
+<h1 id="battery-protect-">Battery Protect <a name="battery-protect"></a></h1>
 
 <ul>
   <li>Batt -&gt; In -&gt; Out -&gt; Loads</li>
   <li>Connect lead to out of MPPT Load so MPPT can shut system down if needs to</li>
 </ul>
 
-<p><img src="../battery-protect-installation.png" alt="battery protect installation" /></p>
+<p><img src="../pics/battery-protect-installation.png" alt="battery protect installation" /></p>
 
-<h1 id="wire-gauge-chart">Wire Gauge Chart</h1>
+<h1 id="wire-gauge-info-">Wire Gauge Info <a name="wire-gauge-info"></a></h1>
 
-<p>Useful when choosing wires</p>
+<p><a href="../pics/wire-gauge-chart.jpg" target="_blank">Wire gauge chart on amperage and voltage drop</a></p>
 
-<p><img src="../wire-gauge-chart.jpg" alt="wire-gauge-chart" /></p>
+<h3 id="conversion-chart">Conversion chart</h3>
 
-<h1 id="wire-gauge-conversions">Wire Gauge Conversions</h1>
+<table>
+<tbody><tr>
+<th>AWG #</th>
+<th>Diameter<br />(mm)</th>
+<th>Diameter<br />(inch)</th>
+<th>Area<br /></th>
+</tr>
+<tr>
+<td>0000 (4/0)</td>
+<td>11.6840mm</td>
+<td>0.4600"</td>
+<td>107.2193mm<sup>2</sup></td>
+</tr>
+<tr>
+<td>000 (3/0)</td>
+<td>10.4049mm</td>
+<td>0.4096"</td>
+<td>85.0288mm<sup>2</sup></td>
+</tr>
+<tr>
+<td>00 (2/0)</td>
+<td>9.2658mm</td>
+<td>0.3648"</td>
+<td>67.4309mm<sup>2</sup></td>
+</tr>
+<tr>
+<td>0 (1/0)</td>
+<td>8.2515mm</td>
+<td>0.3249"</td>
+<td>53.4751mm<sup>2</sup></td>
+</tr>
+<tr>
+<td>1</td>
+<td>7.3481mm</td>
+<td>0.2893"</td>
+<td>42.4077mm<sup>2</sup></td>
+</tr>
+<tr>
+<td>2</td>
+<td>6.5437mm</td>
+<td>0.2576"</td>
+<td>33.6308mm<sup>2</sup></td>
+</tr>
+<tr>
+<td>3</td>
+<td>5.8273mm</td>
+<td>0.2294"</td>
+<td>26.6705mm<sup>2</sup></td>
+</tr>
+<tr>
+<td>4</td>
+<td>5.1894mm</td>
+<td>0.2043"</td>
+<td>21.1506mm<sup>2</sup></td>
+</tr>
+<tr>
+<td>5</td>
+<td>4.6213mm</td>
+<td>0.1819"</td>
+<td>16.7732mm<sup>2</sup></td>
+</tr>
+<tr>
+<td>6</td>
+<td>4.1154mm</td>
+<td>0.1620"</td>
+<td>13.3018mm<sup>2</sup></td>
+</tr>
+<tr>
+<td>7</td>
+<td>3.6649mm</td>
+<td>0.1443"</td>
+<td>10.5488mm<sup>2</sup></td>
+</tr>
+<tr>
+<td>8</td>
+<td>3.2636mm</td>
+<td>0.1285"</td>
+<td>8.3656mm<sup>2</sup></td>
+</tr>
+<tr>
+<td>9</td>
+<td>2.9064mm</td>
+<td>0.1144"</td>
+<td>6.6342mm<sup>2</sup></td>
+</tr>
+<tr>
+<td>10</td>
+<td>2.5882mm</td>
+<td>0.1019"</td>
+<td>5.2612mm<sup>2</sup></td>
+</tr>
+<tr>
+<td>11</td>
+<td>2.3048mm</td>
+<td>0.0907"</td>
+<td>4.1723mm<sup>2</sup></td>
+</tr>
+<tr>
+<td>12</td>
+<td>2.0525mm</td>
+<td>0.0808"</td>
+<td>3.3088mm<sup>2</sup></td>
+</tr>
+<tr>
+<td>13</td>
+<td>1.8278mm</td>
+<td>0.0720"</td>
+<td>2.6240mm<sup>2</sup></td>
+</tr>
+<tr>
+<td>14</td>
+<td>1.6277mm</td>
+<td>0.0641"</td>
+<td>2.0809mm<sup>2</sup></td>
+</tr>
+</tbody></table>
 
-<p><img src="../wire-gauge-conversions.jpeg" alt="wire gauge conversions" /></p>
+<h1 id="why-im-not-grounding-my-system-">Why i’m not grounding my system <a name="why-not-ground"></a></h1>
+
+<h4 id="not-connected-to-ground">Not connected to ground</h4>
+
+<p><img src="../pics/ungrounded.png" alt="ungrounded" /></p>
+
+<h4 id="connected-to-ground">Connected to ground</h4>
+
+<p><img src="../pics/grounded.png" alt="grounded" /></p>
+
+<ul>
+  <li>An RCD device will measure if any current is going to ground and cut off the circuit.</li>
+</ul>
+
+<h1 id="dangers-of-electricity-">Dangers of electricity <a name="dangers"></a></h1>
+
+<p>Electricity is dangerous. It can cause harm to persons or property.</p>
+
+<p>It takes a remarkably small amount of current across the human heart to stop it. Due to the natural resistance
+of the human skin and tissue this means that a high voltage is required to generate this heart-stopping current.
+But humans have died at as low as 42 Volt. Both DC and AC can cause this fatal occurrence.</p>
+
+<table>
+   <caption><strong>Shock Physiological Effects</strong><br /></caption>
+   <tbody>
+      <tr>
+         <td><strong>Electric Current</strong><br /><strong>(1 second contact)</strong></td>
+         <td valign="top"><strong>Physiological Effect</strong></td>
+      </tr>
+      <tr>
+         <td>1 mA</td>
+         <td>Threshold of feeling, tingling sensation.</td>
+      </tr>
+      <tr>
+         <td>5 mA</td>
+         <td>Accepted as maximum harmless current</td>
+      </tr>
+      <tr>
+         <td>10-20 mA</td>
+         <td>Beginning of sustained muscular contraction ("Can't let go" current.)</td>
+      </tr>
+      <tr>
+         <td>100-300 mA</td>
+         <td>Ventricular fibrillation, fatal if continued. Respiratory function continues.</td>
+      </tr>
+      <tr>
+         <td>6 A</td>
+         <td>Sustained ventricular contraction followed by normal heart rhythm. (defibrillation). Temporary respiratory paralysis and possibly burns.</td>
+      </tr>
+   </tbody>
+</table>
+
+<h1 id="sources-">Sources <a name="sources"></a></h1>
+
+<ul>
+  <li><a href="https://www.victronenergy.com/upload/documents/Wiring-Unlimited-EN.pdf">Victron’s wiring unlimited book</a></li>
+  <li>The devices’ manuals - find them linked on <a href="/electrics-diagram">the diagram</a></li>
+</ul>
 
   </div>
 
