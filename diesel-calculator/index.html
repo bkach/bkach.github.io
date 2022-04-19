@@ -55,16 +55,8 @@ $(document).ready(function() {
 
     let mpl = 7.424;
 
-    var prevMonday = new Date();
-    prevMonday.setDate(prevMonday.getDate() - (prevMonday.getDay() + 6) % 7);
-    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(prevMonday);
-    let mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(prevMonday).toLowerCase();
-    let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(prevMonday);
-    fileName = `${da}${mo}${ye}`
-    console.log(fileName);
-
     const Http = new XMLHttpRequest();
-    const url="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1068229/CSV-" + fileName + ".csv";
+    const url="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1068229/CSV-11apr2022.csv";
     console.log(url);
     Http.open("GET", url);
     Http.send();
