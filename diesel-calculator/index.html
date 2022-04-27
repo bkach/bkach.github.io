@@ -45,62 +45,87 @@
   <div class="post-content">
     <!DOCTYPE html>
 <html>
-<head>
-<script src="../jquery-3.6.0.min.js"></script>
-<script src="../jquery.csv.js"></script>
+  <head>
+    <script src="../jquery-3.6.0.min.js"></script>
+    <script src="../jquery.csv.js"></script>
 
-<script>
+    <script>
 
-$(document).ready(function() {
+      $(document).ready(function() {
 
-    let mpl = 7.424;
+              let mpl = 7.424;
 
-    const Http = new XMLHttpRequest();
-    const url="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1068229/CSV-11apr2022.csv";
-    console.log(url);
-    Http.open("GET", url);
-    Http.send();
+              const Http = new XMLHttpRequest();
+              const url="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1068229/CSV-11apr2022.csv";
+              Http.open("GET", url);
+              Http.send();
 
-    let pricePerLiter = 0
-    Http.onreadystatechange = (e) => {
-      if(Http.readyState === XMLHttpRequest.DONE) {
-        result = $.csv.toArrays(Http.responseText);
-        result.reverse();
+              let pricePerLiter = 0
+              let dates = []
 
-        date = result[0][0];
-          $("#mytitle").html("Diesel prices from: " + date + "<br /><a href='https://www.gov.uk/government/statistics/weekly-road-fuel-prices'>source</a>");
-        pricePerLiter = parseFloat(result[0][2]) / 100
-      }
-    }
+              var result
+              Http.onreadystatechange = (e) => {
+                      if(Http.readyState === XMLHttpRequest.DONE) {
+                              result = $.csv.toArrays(Http.responseText);
+                              result.reverse();
 
+                              // Clear
+                              let select = document.getElementById("year");
+                              select.innerHTML = "";
 
-    function docalc() {
-      miles = $("#input").val();
-      console.log(miles);
-
-      price = parseFloat((parseFloat(miles) / mpl) * parseFloat(pricePerLiter)).toFixed(2)
-      console.log(price)
-
-      $("#mylist").append("<li>£" + price + " to go " + miles + " miles in the van</li>"); 
-    }
-
-
-    $("#input").change(docalc);
-});
-</script>
-</head>
-<body>
-
-<label for="input">Distance (in miles)</label>
-<input type="number" id="input">
-<ul id="mylist">
-</ul>
-
-<br />
-<div id="mytitle" style="position:absolue; bottom: 0;></div>
+                              result.forEach((r,i)=>{
+                                      var parts = r[0].split("/");
+                                      var dt = new Date(parseInt(parts[2], 10),
+                                              parseInt(parts[1], 10) - 1,
+                                              parseInt(parts[0], 10));
+                                      let date = dt.toLocaleDateString('en-us',{day: 'numeric'})
+                                      let month = dt.toLocaleDateString('en-us',{month: 'long'})
+                                      let year = dt.toLocaleDateString('en-us',{year: 'numeric'})
+                                      const FormattedDate = `${month} ${date}, ${year}`
+                                      if (date != "Invalid Date") {
+                                              $("#year").append(new Option(FormattedDate, i))
+                                            }
+                                            }
+                                            )
+                                      for (let i = 0, len = result.length; i < len; i++) {
+                                              dates.push(result[i][0])
+                                            }
+                                    }
+                            }
 
 
-</body>
+                      function docalc() {
+                              miles = $("#input").val();
+                              if (miles === "") {
+                                      return undefined
+                                    }
+
+                              yearIndex = $('#year option:selected').val();
+                              pricePerLiter = parseFloat(result[yearIndex][2]) / 100
+
+                              price = parseFloat((parseFloat(miles) / mpl) * parseFloat(pricePerLiter)).toFixed(2)
+
+                              $("#mylist").append("<li>£" + price + " to go " + miles + " miles in the van</li>"); 
+                            }
+
+
+                      $("#input").change(docalc);
+                      $("#year").change(docalc);
+                    });
+    </script>
+  </head>
+  <body>
+
+    <label for="input">Distance (in miles)</label>
+    <input type="number" id="input">
+    <br />
+    <label for="select">Date</label>
+    <select id="year">
+    </select>
+    <ul id="mylist">
+    </ul>
+
+  </body>
 </html>
 
   </div>
