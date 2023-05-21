@@ -15,10 +15,6 @@
             <button class="btn btn-primary mt-2" id="addSession">Add Price</button>
         </div>
         <div class="form-group">
-            <label for="clientsPerWeek">Clients per Week:</label>
-            <input type="number" class="form-control" id="clientsPerWeek">
-        </div>
-        <div class="form-group">
             <label for="cancellationRate">Cancellation Rate (%):</label>
             <input type="number" class="form-control" id="cancellationRate" value="30">
         </div>
@@ -39,13 +35,13 @@
             const sessionPrice = $('<input>', {
                 type: 'number',
                 id: `price${priceCount}`,
-                placeholder: 'Price per session',
+                placeholder: 'Price per session (£)',
                 class: 'form-control my-2'
             });
             const sessionAmount = $('<input>', {
                 type: 'number',
                 id: `amount${priceCount}`,
-                placeholder: 'Amount at this price',
+                placeholder: 'Number of clients per week at this price',
                 class: 'form-control my-2'
             });
             $('#sessionList').append(sessionPrice, sessionAmount);
@@ -67,18 +63,16 @@
                     yearlyIncome += price * amount;
                 }
 
-                const clientsPerWeek = parseFloat($('#clientsPerWeek').val()) || 0;
                 const cancellationRate = parseFloat($('#cancellationRate').val()) / 100 || 0;
                 const daysOffPerYear = parseFloat($('#daysOffPerYear').val()) || 0;
                 const taxRate = parseFloat($('#taxRate').val()) / 100 || 0;
 
                 const weeksPerYear = 52 - (daysOffPerYear / 7);
-                yearlyIncome *= clientsPerWeek * weeksPerYear * (1 - cancellationRate);
+                yearlyIncome *= weeksPerYear * (1 - cancellationRate);
                 yearlyTax = yearlyIncome * taxRate;
 
-                $('#result').text(`Yearly Income: $${yearlyIncome.toFixed(2)}, Tax: $${yearlyTax.toFixed(2)}`);
+                $('#result').text(`Yearly Income: £${yearlyIncome.toFixed(2)}, Tax: £${yearlyTax.toFixed(2)}`);
             });
         });
     </script>
-</body>
-</html>
+</body
