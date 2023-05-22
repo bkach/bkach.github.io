@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
 </head>
 <body>
     <div class="container my-4">
@@ -19,8 +20,8 @@
             <input type="number" class="form-control" id="cancellationRate" value="30">
         </div>
         <div class="form-group">
-            <label for="daysOffPerYear">Days Off per Year:</label>
-            <input type="number" class="form-control" id="daysOffPerYear">
+            <label for="weeksOffPerYear">Weeks Off per Year:</label>
+            <input type="number" class="form-control" id="weeksOffPerYear">
         </div>
         <div class="form-group">
             <label for="taxRate">Tax Rate (%):</label>
@@ -30,24 +31,57 @@
         <h3 class="text-center my-4" id="result"></h3>
     </div>
     <script>
+        const storageKey = 'therapistCalculator';
         let priceCount = 0;
-        function addSessionPrice() {
+        function addSessionPrice(price = '', amount = '') {
             const sessionPrice = $('<input>', {
                 type: 'number',
                 id: `price${priceCount}`,
                 placeholder: 'Price per session (£)',
-                class: 'form-control my-2'
+                class: 'form-control my-2',
+                value: price
             });
             const sessionAmount = $('<input>', {
                 type: 'number',
                 id: `amount${priceCount}`,
                 placeholder: 'Number of clients per week at this price',
-                class: 'form-control my-2'
+                class: 'form-control my-2',
+                value: amount
             });
-            $('#sessionList').append(sessionPrice, sessionAmount);
+            const removeButton = $('<button>', {
+                text: 'Remove',
+                class: 'btn btn-danger my-2',
+                click: function () {
+                    sessionPrice.remove();
+                    sessionAmount.remove();
+                    $(this).remove();
+                    saveToLocalStorage();
+                }
+            });
+            $('#sessionList').append(sessionPrice, sessionAmount, removeButton);
             priceCount++;
         }
+        function saveToLocalStorage() {
+            const calculatorData = {
+                prices: _.range(priceCount).map(i => {
+                    const priceElement = $(`#price${i}`);
+                    const amountElement = $(`#amount${i}`);
+                    return priceElement.length && amountElement.length ? {
+                        price: priceElement.val(),
+                        amount: amountElement.val()
+                    } : null;
+                }).filter(Boolean),
+                cancellationRate: $('#cancellationRate').val(),
+                weeksOffPerYear: $('#weeksOffPerYear').val(),
+                taxRate: $('#taxRate').val()
+            };
 
+            try {
+                localStorage.setItem(storageKey, JSON.stringify(calculatorData));
+            } catch (e) {
+                console.warn('Failed to save data to localStorage.');
+            }
+        }
         $(document).ready(function () {
             $('#addSession').on('click', function () {
                 addSessionPrice();
@@ -64,15 +98,30 @@
                 }
 
                 const cancellationRate = parseFloat($('#cancellationRate').val()) / 100 || 0;
-                const daysOffPerYear = parseFloat($('#daysOffPerYear').val()) || 0;
+                const weeksOffPerYear = parseFloat($('#weeksOffPerYear').val()) || 0;
                 const taxRate = parseFloat($('#taxRate').val()) / 100 || 0;
 
-                const weeksPerYear = 52 - (daysOffPerYear / 7);
+                const weeksPerYear = 52 - weeksOffPerYear;
                 yearlyIncome *= weeksPerYear * (1 - cancellationRate);
                 yearlyTax = yearlyIncome * taxRate;
 
-                $('#result').text(`Yearly Income: £${yearlyIncome.toFixed(2)}, Tax: £${yearlyTax.toFixed(2)}`);
+                $('#result').text(`Yearly Income: £${parseFloat(yearlyIncome.toFixed(2)).toLocaleString('en-UK')}, Tax: £${parseFloat(yearlyTax.toFixed(2)).toLocaleString('en-UK')}`);
+
+                saveToLocalStorage();
             });
-        });
+
+            try {
+                const savedData = JSON.parse(localStorage.getItem(storageKey));
+                if (savedData) {
+                    savedData.prices.forEach(({ price, amount }) => addSessionPrice(price, amount));
+                    $('#cancellationRate').val(savedData.cancellationRate);
+                    $('#weeksOffPerYear').val(savedData.weeksOffPerYear);
+                    $('#taxRate').val(savedData.taxRate);
+                }
+            } catch (e) {
+                console.warn('Failed to load data from localStorage.');
+            }
+            });
     </script>
-</body
+</body>
+</html>
