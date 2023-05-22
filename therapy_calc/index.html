@@ -27,6 +27,10 @@
             <label for="taxRate">Tax Rate (%):</label>
             <input type="number" class="form-control" id="taxRate" value="30">
         </div>
+        <div class="form-group">
+            <label for="expenses">Expenses per year (£):</label>
+            <input type="number" class="form-control" id="expenses">
+        </div>
         <button class="btn btn-success" id="calculate">Calculate</button>
         <h3 class="text-center my-4" id="result"></h3>
     </div>
@@ -73,7 +77,8 @@
                 }).filter(Boolean),
                 cancellationRate: $('#cancellationRate').val(),
                 weeksOffPerYear: $('#weeksOffPerYear').val(),
-                taxRate: $('#taxRate').val()
+                taxRate: $('#taxRate').val(),
+                expenses: $('#expenses').val()
             };
 
             try {
@@ -100,9 +105,11 @@
                 const cancellationRate = parseFloat($('#cancellationRate').val()) / 100 || 0;
                 const weeksOffPerYear = parseFloat($('#weeksOffPerYear').val()) || 0;
                 const taxRate = parseFloat($('#taxRate').val()) / 100 || 0;
+                const expenses = parseFloat($('#expenses').val()) || 0;
 
                 const weeksPerYear = 52 - weeksOffPerYear;
                 yearlyIncome *= weeksPerYear * (1 - cancellationRate);
+                yearlyIncome = yearlyIncome - expenses;
                 yearlyTax = yearlyIncome * taxRate;
 
                 $('#result').text(`Yearly Income: £${parseFloat(yearlyIncome.toFixed(2)).toLocaleString('en-UK')}, Tax: £${parseFloat(yearlyTax.toFixed(2)).toLocaleString('en-UK')}`);
@@ -117,6 +124,7 @@
                     $('#cancellationRate').val(savedData.cancellationRate);
                     $('#weeksOffPerYear').val(savedData.weeksOffPerYear);
                     $('#taxRate').val(savedData.taxRate);
+                    $('#expenses').val(savedData.expenses);
                 }
             } catch (e) {
                 console.warn('Failed to load data from localStorage.');
