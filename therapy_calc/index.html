@@ -20,6 +20,9 @@
         .cursor-pointer {
             cursor: pointer;
         }
+        .highlight-row {
+            background-color: #f8f9fa;
+        }
     </style>
 </head>
 <body>
@@ -122,10 +125,6 @@
                 // Clear all input fields
                 $('input').val('');
 
-                $('#resultTable').hide(); // hide the results table
-                $('#incomeCell').text(''); // clear the income cell
-                $('#taxCell').text(''); // clear the tax cell
-
                 // Remove all session price inputs
                 $('#sessionList').empty();
                 priceCount = 0;
@@ -209,7 +208,7 @@
                 `;
 
                 let newRow = `
-                <tr class="cursor-pointer" data-toggle="collapse" data-target="#inputs${timestamp}">
+                <tr class="cursor-pointer ${sessionResults.length === 0 ? 'highlight-row' : ''}" data-toggle="collapse" data-target="#inputs${timestamp}">                
                     <td>£${parseFloat(yearlyIncome.toFixed(2)).toLocaleString('en-UK', {minimumFractionDigits: 2})}</td>
                     <td>£${parseFloat(yearlyTax.toFixed(2)).toLocaleString('en-UK', {minimumFractionDigits: 2})}</td>
                 </tr>
@@ -224,6 +223,11 @@
 
                 // Prepend the new row to session results table
                 $("#sessionResults").prepend(newRow);
+
+                // Remove the highlight class from all rows except the first one
+                $("#sessionResults").children().removeClass('highlight-row');
+                $("#sessionResults").children().first().addClass('highlight-row');
+
                 $("#sessionResultsTable").show(); // Show the table if it's not visible
 
                 saveToLocalStorage();
