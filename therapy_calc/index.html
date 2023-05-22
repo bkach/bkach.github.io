@@ -47,7 +47,7 @@
         </div>
         <div class="form-group">
             <label for="expenses">Expenses per year (£):</label>
-            <input type="number" class="form-control" id="expenses">
+            <input type="number" class="form-control" id="expenses" value="0">
         </div>
         <button class="btn btn-success" id="calculate">Calculate</button>
         <button class="btn btn-secondary" id="clearAll">Clear All</button>
@@ -172,39 +172,43 @@
                     expenses: $('#expenses').val()
                 };
 
-                // Prepare inputs text
-                let inputsText = inputs.prices.map((session, index) => `Session ${index+1}: Price - £${parseFloat(session.price).toLocaleString('en-UK', {minimumFractionDigits: 2})}, Amount - ${session.amount}`).join(", ") +
-                    `, Cancellation Rate: ${inputs.cancellationRate}%, Weeks Off per Year: ${inputs.weeksOffPerYear}, Tax Rate: ${inputs.taxRate}%, Expenses: £${parseFloat(inputs.expenses).toLocaleString('en-UK', {minimumFractionDigits: 2})}`;
-
                 // Prepare new row
                 let timestamp = Date.now();
 
                 // Prepare inputs table
-                let inputsTable = inputs.prices.map((session, index) => `
-                <tr>
-                    <td>Session ${index+1}:</td>
-                    <td>Price - £${parseFloat(session.price).toLocaleString('en-UK', {minimumFractionDigits: 2})},</td>
-                    <td>Amount - ${session.amount}</td>
-                </tr>
-                `).join("");
+                let inputsTable = '';
+                inputs.prices.forEach((session, index) => {
+                  if (session.price && session.amount) {
+                    inputsTable += `
+                      <tr>
+                        <td>Session ${index + 1}:</td>
+                        <td>Price - £${parseFloat(session.price).toLocaleString('en-UK', {
+                          minimumFractionDigits: 2
+                        })},</td>
+                        <td>Amount - ${session.amount}</td>
+                      </tr>
+                    `;
+                  }
+                });
 
+                // Prepare inputs table
                 inputsTable += `
-                <tr>
+                  <tr>
                     <td>Cancellation Rate:</td>
                     <td colspan="2">${inputs.cancellationRate}%</td>
-                </tr>
-                <tr>
+                  </tr>
+                  <tr>
                     <td>Weeks Off per Year:</td>
-                    <td colspan="2">${inputs.weeksOffPerYear}</td>
-                </tr>
-                <tr>
+                    <td colspan="2">${inputs.weeksOffPerYear || '0'}</td>
+                  </tr>
+                  <tr>
                     <td>Tax Rate:</td>
                     <td colspan="2">${inputs.taxRate}%</td>
-                </tr>
-                <tr>
+                  </tr>
+                  <tr>
                     <td>Expenses:</td>
-                    <td colspan="2">£${parseFloat(inputs.expenses).toLocaleString('en-UK', {minimumFractionDigits: 2})}</td>
-                </tr>
+                    <td colspan="2">£${inputs.expenses && !isNaN(inputs.expenses) ? parseFloat(inputs.expenses).toLocaleString('en-UK', { minimumFractionDigits: 2 }) : '0.00'}</td>
+                  </tr>
                 `;
 
                 let newRow = `
