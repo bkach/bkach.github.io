@@ -7,9 +7,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-    <style>
-        .cursor-pointer { cursor: pointer; }
-    </style>
 </head>
 <body>
     <div class="container my-4">
@@ -37,7 +34,8 @@
         </div>
         <button class="btn btn-success" id="calculate">Calculate</button>
         <button class="btn btn-secondary" id="clearAll">Clear All</button>
-        <table class="table mt-4 table-hover" id="sessionResultsTable" style="display: none;">
+        <table class="table mt-4" id="sessionResultsTable" style="display: none;">
+            <caption>Tap on a row to see the inputs</caption>
             <thead>
                 <tr>
                     <th scope="col">Income (£)</th>
