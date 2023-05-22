@@ -6,6 +6,10 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .cursor-pointer { cursor: pointer; }
+    </style>
 </head>
 <body>
     <div class="container my-4">
@@ -33,24 +37,20 @@
         </div>
         <button class="btn btn-success" id="calculate">Calculate</button>
         <button class="btn btn-secondary" id="clearAll">Clear All</button>
-        <table id="resultTable" class="table table-bordered mt-4" style="display: none">
+        <table class="table mt-4 table-hover" id="sessionResultsTable" style="display: none;">
             <thead>
                 <tr>
-                    <th scope="col">Income</th>
-                    <th scope="col">Tax</th>
+                    <th scope="col">Income (£)</th>
+                    <th scope="col">Tax (£)</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td id="incomeCell"></td>
-                    <td id="taxCell"></td>
-                </tr>
-            </tbody>
+            <tbody id="sessionResults"></tbody>
         </table>
     </div>
     <script>
         const storageKey = 'therapistCalculator';
         let priceCount = 0;
+        let sessionResults = [];
         function addSessionPrice(price = '', amount = '') {
             const sessionPrice = $('<input>', {
                 type: 'number',
@@ -105,7 +105,7 @@
             $('#clearAll').on('click', function () {
                 // Clear all input fields
                 $('input').val('');
-                
+
                 $('#resultTable').hide(); // hide the results table
                 $('#incomeCell').text(''); // clear the income cell
                 $('#taxCell').text(''); // clear the tax cell
@@ -146,9 +146,69 @@
                 yearlyIncome = yearlyIncome - expenses;
                 yearlyTax = yearlyIncome * taxRate;
 
-                $('#resultTable').show();
-                $('#incomeCell').text(`£${parseFloat(yearlyIncome).toLocaleString('en-UK', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`);
-                $('#taxCell').text(`£${parseFloat(yearlyTax).toLocaleString('en-UK', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`);
+                let inputs = {
+                    prices: _.range(priceCount).map(i => ({
+                        price: $(`#price${i}`).val(),
+                        amount: $(`#amount${i}`).val()
+                    })),
+                    cancellationRate: $('#cancellationRate').val(),
+                    weeksOffPerYear: $('#weeksOffPerYear').val(),
+                    taxRate: $('#taxRate').val(),
+                    expenses: $('#expenses').val()
+                };
+
+                // Prepare inputs text
+                let inputsText = inputs.prices.map((session, index) => `Session ${index+1}: Price - £${parseFloat(session.price).toLocaleString('en-UK', {minimumFractionDigits: 2})}, Amount - ${session.amount}`).join(", ") +
+                    `, Cancellation Rate: ${inputs.cancellationRate}%, Weeks Off per Year: ${inputs.weeksOffPerYear}, Tax Rate: ${inputs.taxRate}%, Expenses: £${parseFloat(inputs.expenses).toLocaleString('en-UK', {minimumFractionDigits: 2})}`;
+
+                // Prepare new row
+                let timestamp = Date.now();
+
+                // Prepare inputs table
+                let inputsTable = inputs.prices.map((session, index) => `
+                <tr>
+                    <td>Session ${index+1}:</td>
+                    <td>Price - £${parseFloat(session.price).toLocaleString('en-UK', {minimumFractionDigits: 2})},</td>
+                    <td>Amount - ${session.amount}</td>
+                </tr>
+                `).join("");
+
+                inputsTable += `
+                <tr>
+                    <td>Cancellation Rate:</td>
+                    <td colspan="2">${inputs.cancellationRate}%</td>
+                </tr>
+                <tr>
+                    <td>Weeks Off per Year:</td>
+                    <td colspan="2">${inputs.weeksOffPerYear}</td>
+                </tr>
+                <tr>
+                    <td>Tax Rate:</td>
+                    <td colspan="2">${inputs.taxRate}%</td>
+                </tr>
+                <tr>
+                    <td>Expenses:</td>
+                    <td colspan="2">£${parseFloat(inputs.expenses).toLocaleString('en-UK', {minimumFractionDigits: 2})}</td>
+                </tr>
+                `;
+
+                let newRow = `
+                <tr class="cursor-pointer" data-toggle="collapse" data-target="#inputs${timestamp}">
+                    <td>£${parseFloat(yearlyIncome.toFixed(2)).toLocaleString('en-UK', {minimumFractionDigits: 2})}</td>
+                    <td>£${parseFloat(yearlyTax.toFixed(2)).toLocaleString('en-UK', {minimumFractionDigits: 2})}</td>
+                </tr>
+                <tr id="inputs${timestamp}" class="collapse">
+                    <td colspan="2">
+                        <table class="table table-sm">
+                            ${inputsTable}
+                        </table>
+                    </td>
+                </tr>
+                `;
+
+                // Prepend the new row to session results table
+                $("#sessionResults").prepend(newRow);
+                $("#sessionResultsTable").show(); // Show the table if it's not visible
 
                 saveToLocalStorage();
             });
