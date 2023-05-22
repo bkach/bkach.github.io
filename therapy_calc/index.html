@@ -2,11 +2,25 @@
 <html>
 <head>
     <title>Income & Tax Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .btn {
+            margin-bottom: 1rem;
+        }
+        #sessionResultsTable {
+            margin-top: 1rem;
+        }
+        .inputs-table td {
+            padding: 0.25rem;
+        }
+        .cursor-pointer {
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <div class="container my-4">
@@ -45,6 +59,10 @@
             <tbody id="sessionResults"></tbody>
         </table>
     </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script>
         const storageKey = 'therapistCalculator';
         let priceCount = 0;
@@ -197,7 +215,7 @@
                 </tr>
                 <tr id="inputs${timestamp}" class="collapse">
                     <td colspan="2">
-                        <table class="table table-sm">
+                        <table class="table table-sm inputs-table">
                             ${inputsTable}
                         </table>
                     </td>
@@ -223,7 +241,7 @@
             } catch (e) {
                 console.warn('Failed to load data from localStorage.');
             }
-            });
+        });
     </script>
 </body>
 </html>
