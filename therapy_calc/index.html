@@ -177,18 +177,21 @@
 
                 // Prepare inputs table
                 let inputsTable = '';
+                let printedIndex = 0
                 inputs.prices.forEach((session, index) => {
-                  if (session.price && session.amount) {
+                  if (!session.price || !session.amount) {
+                     return
+                  }
+                  printedIndex += 1
                     inputsTable += `
                       <tr>
-                        <td>Session ${index + 1}:</td>
-                        <td>Price - £${parseFloat(session.price).toLocaleString('en-UK', {
+                        <td>Session Price ${printedIndex}:</td>
+                        <td>£${parseFloat(session.price).toLocaleString('en-UK', {
                           minimumFractionDigits: 2
-                        })},</td>
-                        <td>Amount - ${session.amount}</td>
+                        })}</td>
+                        <td>${session.amount} session${session.amount - 1 ? 's' : ''}</td>
                       </tr>
                     `;
-                  }
                 });
 
                 // Prepare inputs table
