@@ -32,7 +32,21 @@
             <input type="number" class="form-control" id="expenses">
         </div>
         <button class="btn btn-success" id="calculate">Calculate</button>
-        <h3 class="text-center my-4" id="result"></h3>
+        <button class="btn btn-secondary" id="clearAll">Clear All</button>
+        <table id="resultTable" class="table table-bordered mt-4" style="display: none">
+            <thead>
+                <tr>
+                    <th scope="col">Income</th>
+                    <th scope="col">Tax</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="incomeCell"></td>
+                    <td id="taxCell"></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <script>
         const storageKey = 'therapistCalculator';
@@ -88,6 +102,26 @@
             }
         }
         $(document).ready(function () {
+            $('#clearAll').on('click', function () {
+                // Clear all input fields
+                $('input').val('');
+                
+                $('#resultTable').hide(); // hide the results table
+                $('#incomeCell').text(''); // clear the income cell
+                $('#taxCell').text(''); // clear the tax cell
+
+                // Remove all session price inputs
+                $('#sessionList').empty();
+                priceCount = 0;
+
+                // Clear local storage
+                try {
+                    localStorage.removeItem(storageKey);
+                } catch (e) {
+                    console.warn('Failed to clear data from localStorage.');
+                }
+            });
+
             $('#addSession').on('click', function () {
                 addSessionPrice();
             });
@@ -112,7 +146,9 @@
                 yearlyIncome = yearlyIncome - expenses;
                 yearlyTax = yearlyIncome * taxRate;
 
-                $('#result').text(`Yearly Income: £${parseFloat(yearlyIncome.toFixed(2)).toLocaleString('en-UK')}, Tax: £${parseFloat(yearlyTax.toFixed(2)).toLocaleString('en-UK')}`);
+                $('#resultTable').show();
+                $('#incomeCell').text(`£${parseFloat(yearlyIncome).toLocaleString('en-UK', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`);
+                $('#taxCell').text(`£${parseFloat(yearlyTax).toLocaleString('en-UK', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`);
 
                 saveToLocalStorage();
             });
